@@ -102,13 +102,15 @@ fn fill(
     mode: &FillMode,
     buffers: &mut VertexBuffers,
 ) {
-    if let Err(e) = tess.tessellate_path(
+    let result = tess.tessellate_path(
         path,
         &mode.options,
         &mut BuffersBuilder::new(buffers, VertexConstructor { color: mode.color }),
-    ) {
-        error!("FillTessellator error: {:?}", e);
-    }
+    );
+    match result {
+        Ok(result) => info!("tesselation result: {:?}", result),
+        Err(e) => error!("FillTessellator error: {:?}", e),
+    };
 }
 
 #[allow(clippy::trivially_copy_pass_by_ref)] // lyon takes &StrokeOptions
@@ -129,6 +131,12 @@ fn stroke(
 
 fn build_mesh(buffers: &VertexBuffers) -> Mesh {
     let mut mesh = Mesh::new(PrimitiveTopology::TriangleList);
+
+    info!(
+        "Building mesh with vertices={:?} and indices={:?}",
+        &buffers.vertices, &buffers.indices
+    );
+
     mesh.set_indices(Some(Indices::U32(buffers.indices.clone())));
     mesh.insert_attribute(
         Mesh::ATTRIBUTE_POSITION,
