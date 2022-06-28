@@ -19,7 +19,7 @@ use bevy::{
         schedule::{StageLabel, SystemStage},
         system::{Query, ResMut},
     },
-    log::error,
+    log::{error, info},
     render::{
         mesh::{Indices, Mesh},
         render_resource::PrimitiveTopology,

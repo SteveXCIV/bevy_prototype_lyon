@@ -3,7 +3,8 @@
 use bevy::{
     app::{App, Plugin},
     asset::{Assets, HandleUntyped},
-    core_pipeline::core_2d::Transparent2d,
+    core::FloatOrd,
+    core_pipeline::Transparent2d,
     ecs::{
         component::Component,
         entity::Entity,
@@ -30,7 +31,6 @@ use bevy::{
         DrawMesh2d, Mesh2dHandle, Mesh2dPipeline, Mesh2dPipelineKey, Mesh2dUniform,
         SetMesh2dBindGroup, SetMesh2dViewBindGroup,
     },
-    utils::FloatOrd,
 };
 
 /// A marker component for colored 2d meshes
